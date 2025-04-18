@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// Start the server
-app.listen(port, () => {
+// Start the server (Docker-compatible)
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
