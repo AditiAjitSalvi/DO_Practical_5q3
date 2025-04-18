@@ -28,7 +28,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    bat 'docker run -p 3000:3000 prac05q4'
+                    bat 'docker run --rm -p 3000:3000 prac05q4'
                 }
             }
         }
