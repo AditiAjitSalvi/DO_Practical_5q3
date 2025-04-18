@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'prac05q4'
         APP_PORT = '3000'
+        IMAGE_PATH = 'D:/FAMTMCA/SEM2/Devops/practicalno05/prac05q4'  // Set the correct path here
     }
 
     stages {
@@ -16,8 +17,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dir('prac05q4') {
-                        docker.build("${IMAGE_NAME}", ".")
+                    // Build Docker image using the correct path
+                    dir("${IMAGE_PATH}") {
+                        bat 'docker build -t prac05q4 .'
                     }
                 }
             }
@@ -26,7 +28,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image("${IMAGE_NAME}").run("-p ${APP_PORT}:${APP_PORT}")
+                    bat 'docker run -p 3000:3000 prac05q4'
                 }
             }
         }
@@ -36,7 +38,7 @@ pipeline {
         always {
             echo 'Cleaning up any dangling containers...'
             script {
-                sh "docker container prune -f"
+                bat 'docker container prune -f'
             }
         }
     }
